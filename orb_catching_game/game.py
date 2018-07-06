@@ -8,11 +8,11 @@ import os
 if HEADLESS:
     os.environ['SDL_VIDEODRIVER'] = 'dummy'
 
-from game.floor import Floor
-from game.obstacle import Obstacle
-from game.orb import Orb, BonusOrb
-from game.robot import Robot
-from utilities import files
+from orb_catching_game.floor import Floor
+from orb_catching_game.obstacle import Obstacle
+from orb_catching_game.orb import Orb, BonusOrb
+from orb_catching_game.robot import Robot
+from orb_catching_game.utilities import files
 
 import pygame
 from pygame.locals import *

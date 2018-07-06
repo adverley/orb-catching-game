@@ -1,5 +1,5 @@
 import pygame
-from utilities import color_constants
+from orb_catching_game.utilities import color_constants
 
 
 class Orb(pygame.sprite.Sprite):

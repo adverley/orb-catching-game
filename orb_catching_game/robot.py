@@ -1,6 +1,6 @@
 import pygame
 
-from utilities import files
+from orb_catching_game.utilities import files
 
 class Robot(pygame.sprite.Sprite):
     ACTION_NOTHING = -1
