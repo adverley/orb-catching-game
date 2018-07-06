@@ -1,0 +1,50 @@
+{
+  "level1": {
+    "screen_resolution": [10,10],
+    "robot_speed": 2,
+    "robot_size": [2,2],
+    "orb_size": [1,1],
+    "obstacle_size": [3,3],
+    "spawn_distance_ratios": {
+      "obstacle-obstacle": 2,
+      "obstacle-robot": 2,
+      "obstacle-orb": 2.5,
+      "robot-orb": 1,
+      "orb-orb": 1
+    },
+    "n_obstacles": 0,
+    "n_bonus_orbs": 3
+  },
+  "level2": {
+    "screen_resolution": [10,10],
+    "robot_speed": 1,
+    "robot_size": [2,2],
+    "orb_size": [1,1],
+    "obstacle_size": [2,2],
+    "spawn_distance_ratios": {
+      "obstacle-obstacle": 1.5,
+      "obstacle-robot": 1.5,
+      "obstacle-orb": 1.5,
+      "robot-orb": 1,
+      "orb-orb": 1
+    },
+    "n_obstacles": 2,
+    "n_bonus_orbs": 1
+  },
+  "level3": {
+    "screen_resolution": [50, 50],
+    "robot_speed": 3,
+    "robot_size": [4, 4],
+    "orb_size": [2, 2],
+    "obstacle_size": [6, 6],
+    "spawn_distance_ratios": {
+      "obstacle-obstacle": 2,
+      "obstacle-robot": 2,
+      "obstacle-orb": 2.5,
+      "robot-orb": 1,
+      "orb-orb": 1
+    },
+    "n_obstacles": 3,
+    "n_bonus_orbs": 3
+  }
+}
