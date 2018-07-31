@@ -2,6 +2,8 @@ PLAY_SELF = 0
 
 HEADLESS = True and not PLAY_SELF
 
+# TODO: respawn orb without killing it! Just respawn the position
+
 import os
 
 # RUN THIS BEFORE IMPORTING PYGAME

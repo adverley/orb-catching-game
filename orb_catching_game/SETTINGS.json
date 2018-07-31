@@ -1,7 +1,7 @@
 {
   "level1": {
     "screen_resolution": [10,10],
-    "robot_speed": 2,
+    "robot_speed": 1,
     "robot_size": [2,2],
     "orb_size": [1,1],
     "obstacle_size": [3,3],
