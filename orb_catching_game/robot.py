@@ -103,7 +103,7 @@ class Robot(pygame.sprite.Sprite):
                                     self.surf.get_rect().topright]
 
         self.surf.fill(self.floor.color)
-        pygame.draw.polygon(self.surf, color_constants.GREEN, triangle_coordinates)
+        pygame.draw.polygon(self.surf, self.color, triangle_coordinates)
 
         # to_rotate = Robot.Direction.rotation(self.look_at, new_look_at)
         # self.look_at = new_look_at
