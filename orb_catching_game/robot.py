@@ -1,6 +1,9 @@
 import pygame
 
 from orb_catching_game.utilities import files
+from utils import color_constants
+from utils.color_constants import colors
+
 
 class Robot(pygame.sprite.Sprite):
     ACTION_NOTHING = -1
@@ -29,12 +32,13 @@ class Robot(pygame.sprite.Sprite):
         self.speed = game.settings['robot_speed']
         self.look_at = Robot.DEFAULT_DIRECTION
 
+        self.surf = pygame.Surface(game.settings['robot_size'])
+
         self.image = pygame.image.load(files.get_resource('triangle.png')).convert()
         self.image = pygame.transform.scale(self.image, game.settings['robot_size'])
 
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect = self.surf.get_rect(topleft=(x, y))
 
         self._prev_rect = self.rect.copy()
         self.action = Robot.ACTION_NOTHING
@@ -83,12 +87,26 @@ class Robot(pygame.sprite.Sprite):
         elif self.action == Robot.ACTION_DOWN:
             new_look_at = Robot.Direction.SOUTH
 
-        to_rotate = Robot.Direction.rotation(self.look_at, new_look_at)
         self.look_at = new_look_at
-        if to_rotate != 0:
-            self.image = pygame.transform.rotate(self.image, to_rotate)
+        if self.look_at == Robot.Direction.EAST:
+            triangle_coordinates = [[0, 0], [20, 10], [0, 20]]
+        elif self.look_at == Robot.Direction.WEST:
+            triangle_coordinates = [[0, 10], [20, 0], [20, 20]]
+        elif self.look_at == Robot.Direction.NORTH:
+            triangle_coordinates = [[10, 0], [0, 20], [20, 20]]
+        elif self.look_at == Robot.Direction.SOUTH:
+            triangle_coordinates = [ [10, 20],[0, 0], [20, 0]]
 
-        display.blit(self.image, self.position)
+        self.surf.fill(color_constants.BLACK)
+        pygame.draw.polygon(self.surf, color_constants.GREEN, triangle_coordinates)
+
+        # to_rotate = Robot.Direction.rotation(self.look_at, new_look_at)
+        # self.look_at = new_look_at
+        # if to_rotate != 0:
+        #     self.surf = pygame.transform.rotate(self.surf, to_rotate)
+
+        display.blit(self.surf, self.rect)
+        # display.blit(self.image, self.position)
 
 
 

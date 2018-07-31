@@ -1,3 +1,5 @@
+import time
+
 PLAY_SELF = 1
 
 HEADLESS = True and not PLAY_SELF
@@ -73,7 +75,9 @@ class OrbCatchingGame:
 
         while self._running:
             while self.take_step:
+                start = time.time()
                 self.step()
+                print('FPS: {}'.format(1 / (time.time() - start)))
 
         if self.shutdown:
             self.on_cleanup()
