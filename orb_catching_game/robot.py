@@ -26,9 +26,10 @@ class Robot(pygame.sprite.Sprite):
 
     DEFAULT_DIRECTION = Direction.NORTH
 
-    def __init__(self, x, y, floor, game) -> None:
+    def __init__(self, x, y, floor, game, color=color_constants.GREEN) -> None:
         super(Robot, self).__init__()
         self.floor = floor
+        self.color = color
         self.speed = game.settings['robot_speed']
         self.look_at = Robot.DEFAULT_DIRECTION
 
@@ -89,15 +90,19 @@ class Robot(pygame.sprite.Sprite):
 
         self.look_at = new_look_at
         if self.look_at == Robot.Direction.EAST:
-            triangle_coordinates = [[0, 0], [20, 10], [0, 20]]
+            triangle_coordinates = [self.surf.get_rect().topleft, self.surf.get_rect().midright,
+                                    self.surf.get_rect().bottomleft]
         elif self.look_at == Robot.Direction.WEST:
-            triangle_coordinates = [[0, 10], [20, 0], [20, 20]]
+            triangle_coordinates = [self.surf.get_rect().midleft, self.surf.get_rect().topright,
+                                    self.surf.get_rect().bottomright]
         elif self.look_at == Robot.Direction.NORTH:
-            triangle_coordinates = [[10, 0], [0, 20], [20, 20]]
+            triangle_coordinates = [self.surf.get_rect().midtop, self.surf.get_rect().bottomleft,
+                                    self.surf.get_rect().bottomright]
         elif self.look_at == Robot.Direction.SOUTH:
-            triangle_coordinates = [ [10, 20],[0, 0], [20, 0]]
+            triangle_coordinates = [self.surf.get_rect().topleft, self.surf.get_rect().midbottom,
+                                    self.surf.get_rect().topright]
 
-        self.surf.fill(color_constants.BLACK)
+        self.surf.fill(self.floor.color)
         pygame.draw.polygon(self.surf, color_constants.GREEN, triangle_coordinates)
 
         # to_rotate = Robot.Direction.rotation(self.look_at, new_look_at)
@@ -107,6 +112,3 @@ class Robot(pygame.sprite.Sprite):
 
         display.blit(self.surf, self.rect)
         # display.blit(self.image, self.position)
-
-
-
