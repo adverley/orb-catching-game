@@ -1,4 +1,4 @@
-PLAY_SELF = 0
+PLAY_SELF = 1
 
 HEADLESS = True and not PLAY_SELF
 
@@ -26,14 +26,16 @@ class OrbCatchingGame:
     STATE_NORMAL = 0
     STATE_BONUS = 1
 
-    def __init__(self, level=1):
+    def __init__(self, level=1, settings=None):
         self._running = True
         self._display_surface = None
         self.state = OrbCatchingGame.STATE_NORMAL
         self.take_step = False if not PLAY_SELF else True
         self.shutdown = False
 
-        self.settings = self.__load_settings(level)
+        self.settings = settings
+        if self.settings is None:
+            self.settings = self._load_settings_(level)
 
         self.n_obstacles = self.settings['n_obstacles']
 
@@ -265,7 +267,7 @@ class OrbCatchingGame:
 
         return None
 
-    def __load_settings(self, level):
+    def _load_settings_(self, level):
         assert level in (1, 2, 3)
         settings = files.settings()
         settings['level1']['screen_resolution'] = tuple(settings['level1']['screen_resolution'])
