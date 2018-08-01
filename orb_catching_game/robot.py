@@ -1,8 +1,7 @@
 import pygame
 
 from orb_catching_game.utilities import files
-from utils import color_constants
-from utils.color_constants import colors
+from orb_catching_game.utilities import color_constants
 
 
 class Robot(pygame.sprite.Sprite):
