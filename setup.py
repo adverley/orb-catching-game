@@ -15,8 +15,7 @@ setup(
     data_files=[('orb_catching_game/SETTINGS.json')],
     include_package_data=True,
     install_requires=[
-        'pygame',
-        'B'
+        'pygame'
     ],
     description='A game where a robot has to catch an orb in increasing difficult levels. Meant for RL purposes.',
     author='Andreas Verleysen'
