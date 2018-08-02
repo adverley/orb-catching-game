@@ -24,7 +24,7 @@
     "spawn_distance_ratios": {
       "obstacle-obstacle": 1.5,
       "obstacle-robot": 1.5,
-      "obstacle-orb": 1.5,
+      "obstacle-orb": 1.1,
       "robot-orb": 1,
       "orb-orb": 1
     },
