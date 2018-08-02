@@ -2,7 +2,7 @@
   "level1": {
     "screen_resolution": [10,10],
     "robot_speed": 1,
-    "robot_size": [2,2],
+    "robot_size": [1,1],
     "orb_size": [1,1],
     "obstacle_size": [3,3],
     "spawn_distance_ratios": {
@@ -18,7 +18,7 @@
   "level2": {
     "screen_resolution": [10,10],
     "robot_speed": 1,
-    "robot_size": [2,2],
+    "robot_size": [1, 1],
     "orb_size": [1,1],
     "obstacle_size": [2,2],
     "spawn_distance_ratios": {
