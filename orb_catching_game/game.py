@@ -65,7 +65,7 @@ class OrbCatchingGame:
         self.floor = Floor(self.width, self.height)
         self.obstacles = self._init_obstacles(self.settings['n_obstacles'])
         self.robot = self._spawn_robot()
-        self._init_orbs()
+        self._init_orb()
 
         self._running = True
 
@@ -147,11 +147,12 @@ class OrbCatchingGame:
 
         pygame.display.flip()
 
-    def reset(self):
+    def reset(self, orb_position=None, obstacle_positions=None):
         self._running = False
+
         self.state = OrbCatchingGame.STATE_NORMAL
-        self.obstacles = self._init_obstacles(self.settings['n_obstacles'])
-        self._init_orbs()
+        self.obstacles = self._init_obstacles(self.settings['n_obstacles'], obstacle_positions)
+        self._init_orb(orb_position)
         self.collided_obstacles = []
         self.n_bonus_orbs_collected = 0
         self.n_orbs_collected = 0
@@ -161,36 +162,48 @@ class OrbCatchingGame:
     def on_cleanup(self):
         pygame.quit()
 
-    def _init_obstacles(self, n):
+    def _init_obstacles(self, n, positions=None):
         if hasattr(self, 'obstacles') and self.obstacles is not None:
             [obstacle.kill() for obstacle in self.obstacles]
 
         obstacles = pygame.sprite.Group()
         for n_obstacle in range(n):
-            obstacle_width, obstacle_height = self.settings['obstacle_size']
-
-            while True:
-                x, y = random.randint(0, self.floor.width - obstacle_width), random.randint(0,
-                                                                                            self.floor.height - obstacle_height)
-                obstacle = Obstacle(x, y, self.settings['obstacle_size'])
-
-                if not spritecollideany(obstacle, obstacles, collide_rect_ratio(self.spawn_dist_obs_obs)):
-                    if hasattr(self, 'robot') and self.robot is not None:
-                        if not collide_rect_ratio(self.spawn_dist_obs_robot)(obstacle, self.robot):
-                            break
-                    else:
-                        break
-
+            if positions is None:
+                obstacle = self._init_obstacle_randomly(obstacles)
+            else:
+                obstacle = self._init_obstacle_at(positions[n_obstacle])
             obstacles.add(obstacle)
 
         return obstacles
 
-    def _init_orbs(self):
+    def _init_obstacle_at(self, position):
+        x, y = position
+        return Obstacle(x, y, self.settings['obstacle_size'])
+
+    def _init_obstacle_randomly(self, obstacles):
+        obstacle_width, obstacle_height = self.settings['obstacle_size']
+        while True:
+            x, y = random.randint(0, self.floor.width - obstacle_width), random.randint(0,
+                                                                                        self.floor.height - obstacle_height)
+            obstacle = Obstacle(x, y, self.settings['obstacle_size'])
+
+            if not spritecollideany(obstacle, obstacles, collide_rect_ratio(self.spawn_dist_obs_obs)):
+                if hasattr(self, 'robot') and self.robot is not None:
+                    if not collide_rect_ratio(self.spawn_dist_obs_robot)(obstacle, self.robot):
+                        break
+                else:
+                    break
+        return obstacle
+
+    def _init_orb(self, position=None):
         if hasattr(self, 'orbs') and self.orbs is not None:
             [orb.kill() for orb in self.orbs]
 
         self.orbs = pygame.sprite.Group()
-        self.spawn_new_orb_randomly()
+        if position is None:
+            self.spawn_new_orb_randomly()
+        else:
+            self.spawn_new_orb(position)
 
     def _draw_obstacles(self, display):
         [display.blit(obstacle.surf, obstacle.rect) for obstacle in self.obstacles]
@@ -207,6 +220,14 @@ class OrbCatchingGame:
             return Robot.ACTION_RIGHT
         elif key == K_LEFT:
             return Robot.ACTION_LEFT
+
+    def spawn_new_orb(self, position):
+        x, y = position
+        new_orb = Orb(x, y, self)
+        if self.state == OrbCatchingGame.STATE_BONUS:
+            new_orb = BonusOrb(x, y, self)
+
+        self.orbs.add(new_orb)
 
     def spawn_new_orb_randomly(self):
         while True:

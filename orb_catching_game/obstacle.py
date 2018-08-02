@@ -12,7 +12,7 @@ class Obstacle(pygame.sprite.Sprite):
 
         self.surf = pygame.Surface(self.dimension)
         self.surf.fill(color)
-        self.rect = self.surf.get_rect(topleft=[x, y])
+        self.rect = self.surf.get_rect(topleft=[y, x])
 
     def update(self):
         pass

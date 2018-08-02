@@ -38,7 +38,7 @@ class Robot(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, game.settings['robot_size'])
 
         self.rect = self.image.get_rect()
-        self.rect = self.surf.get_rect(topleft=(x, y))
+        self.rect = self.surf.get_rect(topleft=(y, x))
 
         self._prev_rect = self.rect.copy()
         self.action = Robot.ACTION_NOTHING

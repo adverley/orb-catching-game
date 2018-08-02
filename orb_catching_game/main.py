@@ -6,7 +6,7 @@ if __name__ == '__main__':
     settings = {
     "screen_resolution": [512,512],
     "robot_speed": 10,
-    "robot_size": [20,20],
+    "robot_size": [2,2],
     "orb_size": [10,10],
     "obstacle_size": [30,30],
     "spawn_distance_ratios": {
