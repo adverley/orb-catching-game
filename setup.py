@@ -10,12 +10,12 @@ def create_package_list(base_package):
 
 setup(
     name='orb_catching_game',
-    version='1.0',
+    version='1.1',
     packages=create_package_list('orb_catching_game'),
     data_files=[('orb_catching_game/SETTINGS.json')],
     include_package_data=True,
     install_requires=[
-        'pygame'
+        'pygame', 'pillow', 'gym', 'scipy'
     ],
     description='A game where a robot has to catch an orb in increasing difficult levels. Meant for RL purposes.',
     author='Andreas Verleysen'
