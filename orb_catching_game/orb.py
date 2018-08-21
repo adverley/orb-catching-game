@@ -7,7 +7,9 @@ class Orb(pygame.sprite.Sprite):
         super(Orb, self).__init__()
         self.surf = pygame.Surface(game.settings['orb_size'])
         self.surf.fill(color_constants.GOLDENROD)
-        self.rect = self.surf.get_rect(topleft=(y, x))
+        self.rect = self.surf.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
     @property
     def position(self):
@@ -19,4 +21,4 @@ class BonusOrb(Orb):
         super(Orb, self).__init__()
         self.surf = pygame.Surface(game.settings['orb_size'])
         self.surf.fill(color_constants.RED1)
-        self.rect = self.surf.get_rect(topleft=(y, x))
+        self.rect = self.surf.get_rect(topleft=(x, y))
