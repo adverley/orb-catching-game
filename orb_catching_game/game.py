@@ -77,7 +77,7 @@ class OrbCatchingGame:
             while self.take_step:
                 start = time.time()
                 self.step()
-                print('FPS: {}'.format(1 / (time.time() - start)))
+                # print('FPS: {}'.format(1 / (time.time() - start)))
 
         if self.shutdown:
             self.on_cleanup()
