@@ -263,13 +263,7 @@ class OrbCatchingGame:
 
     def get_last_frame(self):
         img_as_array = pygame.surfarray.array3d(pygame.display.get_surface())
-
-        # DEBUG
-        # import PIL.Image
-        # import PIL
-        # img = PIL.Image.fromarray(img_as_array, 'RGB')
-        # img.show()
-        return img_as_array
+        return img_as_array.swapaxes(0, 1)
 
     def normal_orb_is_caught(self):
         for orb in self.orbs:
