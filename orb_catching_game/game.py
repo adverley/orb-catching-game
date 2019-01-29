@@ -263,7 +263,6 @@ class OrbCatchingGame:
 
     def get_last_frame(self):
         img_as_array = pygame.surfarray.array3d(pygame.display.get_surface())
-        return img_as_array.swapaxes(0, 1)
 
         # Swap X and Y axis because pygame puts the rows of the display,
         # represented with an Y coordinate in a matrix, in the rows of the matrix, which is X.
