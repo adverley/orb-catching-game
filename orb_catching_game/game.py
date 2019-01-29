@@ -264,12 +264,11 @@ class OrbCatchingGame:
     def get_last_frame(self):
         img_as_array = pygame.surfarray.array3d(pygame.display.get_surface())
 
-        # DEBUG
-        # import PIL.Image
-        # import PIL
-        # img = PIL.Image.fromarray(img_as_array, 'RGB')
-        # img.show()
-        return img_as_array
+        # Swap X and Y axis because pygame puts the rows of the display,
+        # represented with an Y coordinate in a matrix, in the rows of the matrix, which is X.
+        # This requires us to transpose the matrix of PyGame array3d such that you get a one-on-one mapping between the output matrix and the display.
+        # Swapping the axes also makes it directly usable by opencv, PIL and PyGlet since they assume a (Y, X) data format
+        return img_as_array.swapaxes(0, 1)
 
     def normal_orb_is_caught(self):
         for orb in self.orbs:
