@@ -64,7 +64,7 @@ class OrbCatchingGame:
         self._running = False
         self.floor = Floor(self.width, self.height)
         self.obstacles = self._init_obstacles(self.settings['n_obstacles'])
-        self.robot = self._spawn_robot()
+        self.robot = self._spawn_robot_randomly()
         self._init_orb()
 
         self._running = True
@@ -246,7 +246,7 @@ class OrbCatchingGame:
 
         self.orbs.add(new_orb)
 
-    def _spawn_robot(self):
+    def _spawn_robot_randomly(self):
         while True:
             robot_w, robot_h = self.settings['robot_size']
             x, y = random.randint(0, self.floor.width - robot_w), random.randint(0, self.floor.height - robot_h)
@@ -277,11 +277,25 @@ class OrbCatchingGame:
 
         return True
 
-    def respawn_robot(self):
+    def respawn_robot(self, robot_pos=None):
         if self.robot is not None:
             self.robot.kill()
 
-        self.robot = self._spawn_robot()
+        if robot_pos is None:
+            self.robot = self._spawn_robot_randomly()
+
+        else:
+            self.robot = self._spawn_robot_at_pos(robot_pos)
+
+    def _spawn_robot_at_pos(self, robot_pos):
+        x, y = robot_pos
+        robot = Robot(x, y, self.floor, self)
+
+        if not spritecollideany(robot, self.obstacles):
+            raise ValueError(
+                'Could not spawn robot at position {} because it collides with an obstacle'.format(robot_pos))
+
+        return robot
 
     @property
     def normal_orb(self):
