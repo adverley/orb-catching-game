@@ -147,12 +147,12 @@ class OrbCatchingGame:
 
         pygame.display.flip()
 
-    def reset(self, orb_position=None, obstacle_positions=None):
+    def reset(self, with_orb=True, orb_position=None, obstacle_positions=None):
         self._running = False
 
         self.state = OrbCatchingGame.STATE_NORMAL
         self.obstacles = self._init_obstacles(self.settings['n_obstacles'], obstacle_positions)
-        self._init_orb(orb_position)
+        if with_orb: self._init_orb(orb_position)
         self.collided_obstacles = []
         self.n_bonus_orbs_collected = 0
         self.n_orbs_collected = 0
