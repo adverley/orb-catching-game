@@ -291,7 +291,7 @@ class OrbCatchingGame:
         x, y = robot_pos
         robot = Robot(x, y, self.floor, self)
 
-        if not spritecollideany(robot, self.obstacles):
+        if len(self.obstacles) > 0 and spritecollideany(robot, self.obstacles):
             raise ValueError(
                 'Could not spawn robot at position {} because it collides with an obstacle'.format(robot_pos))
 
