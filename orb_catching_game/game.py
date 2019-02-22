@@ -150,9 +150,14 @@ class OrbCatchingGame:
     def reset(self, with_orb=True, orb_position=None, obstacle_positions=None):
         self._running = False
 
+        self.remove_all_orbs()
+        self.remove_all_obstacles()
+
         self.state = OrbCatchingGame.STATE_NORMAL
         self.obstacles = self._init_obstacles(self.settings['n_obstacles'], obstacle_positions)
-        if with_orb: self._init_orb(orb_position)
+
+        if with_orb:
+            self._init_orb(orb_position)
         self.collided_obstacles = []
         self.n_bonus_orbs_collected = 0
         self.n_orbs_collected = 0
@@ -163,8 +168,7 @@ class OrbCatchingGame:
         pygame.quit()
 
     def _init_obstacles(self, n, positions=None):
-        if hasattr(self, 'obstacles') and self.obstacles is not None:
-            [obstacle.kill() for obstacle in self.obstacles]
+        self.remove_all_obstacles()
 
         obstacles = pygame.sprite.Group()
         for n_obstacle in range(n):
@@ -175,6 +179,10 @@ class OrbCatchingGame:
             obstacles.add(obstacle)
 
         return obstacles
+
+    def remove_all_obstacles(self):
+        if hasattr(self, 'obstacles') and self.obstacles is not None:
+            [obstacle.kill() for obstacle in self.obstacles]
 
     def _init_obstacle_at(self, position):
         x, y = position
@@ -196,14 +204,17 @@ class OrbCatchingGame:
         return obstacle
 
     def _init_orb(self, position=None):
-        if hasattr(self, 'orbs') and self.orbs is not None:
-            [orb.kill() for orb in self.orbs]
+        self.remove_all_orbs()
 
         self.orbs = pygame.sprite.Group()
         if position is None:
             self.spawn_new_orb_randomly()
         else:
             self.spawn_new_orb(position)
+
+    def remove_all_orbs(self):
+        if hasattr(self, 'orbs') and self.orbs is not None:
+            [orb.kill() for orb in self.orbs]
 
     def _draw_obstacles(self, display):
         [display.blit(obstacle.surf, obstacle.rect) for obstacle in self.obstacles]

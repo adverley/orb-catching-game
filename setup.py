@@ -10,7 +10,7 @@ def create_package_list(base_package):
 
 setup(
     name='orb_catching_game',
-    version='1.2',
+    version='1.3',
     packages=create_package_list('orb_catching_game'),
     data_files=[('orb_catching_game/SETTINGS.json')],
     include_package_data=True,
