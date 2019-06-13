@@ -147,11 +147,14 @@ class OrbCatchingGame:
 
         pygame.display.flip()
 
-    def reset(self, with_orb=True, orb_position=None, obstacle_positions=None):
+    def reset(self, with_orb=True, orb_position=None, obstacle_positions=None, with_robot=False, robot_position=None):
         self._running = False
 
         self.remove_all_orbs()
         self.remove_all_obstacles()
+
+        if with_robot:
+            self.respawn_robot(robot_position)
 
         self.state = OrbCatchingGame.STATE_NORMAL
         self.obstacles = self._init_obstacles(self.settings['n_obstacles'], obstacle_positions)
