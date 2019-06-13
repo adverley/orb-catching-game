@@ -1,6 +1,5 @@
 import pygame
 
-from orb_catching_game.utilities import files
 from orb_catching_game.utilities import color_constants
 
 
@@ -33,11 +32,6 @@ class Robot(pygame.sprite.Sprite):
         self.look_at = Robot.DEFAULT_DIRECTION
 
         self.surf = pygame.Surface(game.settings['robot_size'])
-
-        self.image = pygame.image.load(files.get_resource('triangle.png')).convert()
-        self.image = pygame.transform.scale(self.image, game.settings['robot_size'])
-
-        self.rect = self.image.get_rect()
         self.rect = self.surf.get_rect(topleft=(x, y))
 
         self._prev_rect = self.rect.copy()
@@ -100,14 +94,10 @@ class Robot(pygame.sprite.Sprite):
         elif self.look_at == Robot.Direction.SOUTH:
             triangle_coordinates = [self.surf.get_rect().topleft, self.surf.get_rect().midbottom,
                                     self.surf.get_rect().topright]
+        else:
+            raise ValueError(f'Look at direction {self.look_at} should not exist!')
 
         self.surf.fill(self.floor.color)
         pygame.draw.polygon(self.surf, self.color, triangle_coordinates)
 
-        # to_rotate = Robot.Direction.rotation(self.look_at, new_look_at)
-        # self.look_at = new_look_at
-        # if to_rotate != 0:
-        #     self.surf = pygame.transform.rotate(self.surf, to_rotate)
-
         display.blit(self.surf, self.rect)
-        # display.blit(self.image, self.position)
