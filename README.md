@@ -2,7 +2,10 @@
 In this game a robot has to catch an orb which will change position when it is caught. There are three levels with increasing difficulty. This game is developed for RL purposes.
 
 ## Getting started
-Install with `pip install git+https://github.com/adverley/orb-catching-game`. 
+Install with
+ 
+ `pip install git+https://github.com/adverley/orb-catching-game`.
+  
 You can [play the game yourself](#playing-the-game).
 
 The game is primarily meant for Reinforcement Learning purposes. I recommend embedding the game in a [Gym](https://github.com/openai/gym/blob/master/gym/core.py) Environment (the Env class). There is an example in the [orb_catching_env.py](https://github.com/adverley/orb-catching-game/blob/master/orb_catching_game/utilities/orb_catching_env.py) file. 
