@@ -133,6 +133,8 @@ class OrbCatchingGame:
         if colliding_obstacle is not None:
             if colliding_obstacle not in self.collided_obstacles:
                 self.collided_obstacles.append(colliding_obstacle)
+                colliding_obstacle.set_is_touched(True)
+
             self.robot.reset_to_prev_position()
 
         if self.n_obstacles > 1:

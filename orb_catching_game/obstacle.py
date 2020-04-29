@@ -9,9 +9,11 @@ class Obstacle(pygame.sprite.Sprite):
 
         self.dimension = dimension
         self.width, self.height = self.dimension
+        self.color = color
+        self.touched = False
 
         self.surf = pygame.Surface(self.dimension)
-        self.surf.fill(color)
+        self.surf.fill(self.color)
         self.rect = self.surf.get_rect(topleft=[x, y])
 
     def update(self):
@@ -19,3 +21,9 @@ class Obstacle(pygame.sprite.Sprite):
 
     def draw(self, display):
         pass
+
+    def set_is_touched(self, touched):
+        self.touched = touched
+        if self.touched:
+            self.color = color_constants.BLUE
+            self.surf.fill(self.color)
